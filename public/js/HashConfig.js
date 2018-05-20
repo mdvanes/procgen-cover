@@ -24,14 +24,14 @@ class HashConfig {
             4: () => new THREE.IcosahedronGeometry( 100 ),
             5: () => new THREE.SphereGeometry( 100 )
         };
-        const codeScaled = Math.round(parseInt(code, 16) / 16 * Object.keys(geoTypes).length) - 1;
+        const codeScaled = Math.round(parseInt(code, 16) / 16 * (Object.keys(geoTypes).length - 1));
         console.log(`shape type ${code} -> ${codeScaled} -> ${geoTypes[codeScaled]}`);
         return geoTypes[codeScaled];
     }
 
     getBgColor(code) {
-        const acceptedColors = [0xffffff, 0xcccccc, 0xbbffdc, 0xffbbbb, 0xf5bbff, 0xc5bbff, 0xbbe9ff, 0xbbffe0, 0xccffbb, 0xfbffbb, 0xffdebb]
-        const codeScaled = Math.round(parseInt(code, 16) / 16 * acceptedColors.length) - 1;
+        const acceptedColors = [0xffffff, 0xcccccc, 0xbbffdc, 0xffbbbb, 0xf5bbff, 0xc5bbff, 0xbbe9ff, 0xbbffe0, 0xccffbb, 0xfbffbb, 0xffdebb];
+        const codeScaled = Math.round(parseInt(code, 16) / 16 * (acceptedColors.length - 1));
         console.log(`bg color ${code} -> ${codeScaled} -> ${acceptedColors[codeScaled]}`);
         return acceptedColors[codeScaled];
     }
