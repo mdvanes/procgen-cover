@@ -1,0 +1,15 @@
+{
+  "name": "procgen-cover",
+  "version": "1.0.0",
+  "description": "Procedurally generate cover images for blogs posts from a hash of the blog title/date/content",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "M.D. van Es",
+  "license": "MIT",
+  "dependencies": {
+    "node-http-server": "^8.1.2",
+    "puppeteer": "^1.4.0"
+  }
+}
