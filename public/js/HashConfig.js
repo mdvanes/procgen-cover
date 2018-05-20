@@ -9,14 +9,9 @@ class HashConfig {
     constructor(hash) {
         console.log('Source hash =', hash);
         const hashArr = hash.split('');
-        // const shapeTypeHex = hashArr.shift();
-        // const shapeTypeScaled = Math.round(parseInt(shapeTypeHex, 16) * 0.33) + 1;
-        // console.log(shapeTypeHex, '->', shapeTypeScaled);
-        // this.shapeType = shapeTypeScaled;//hash.split('').shift();//Math.round(Math.random() * 5);
         this.shapeType = this.getShapeType(hashArr.shift());
         this.shapeColor = hashArr.splice(0,3).join('');
-        //'14524'.split('').splice(1,3).join('')
-        this.bgColor = this.getBgColor(hashArr.shift()); //hashArr.splice(0,3).join('');
+        this.bgColor = this.getBgColor(hashArr.shift());
         this.cameraOffset = parseInt(hashArr.shift(), 16);
     }
 
@@ -28,7 +23,7 @@ class HashConfig {
             3: () => new THREE.DodecahedronGeometry( 100 ),
             4: () => new THREE.IcosahedronGeometry( 100 ),
             5: () => new THREE.SphereGeometry( 100 )
-        }
+        };
         const codeScaled = Math.round(parseInt(code, 16) / 16 * Object.keys(geoTypes).length) - 1;
         console.log(`shape type ${code} -> ${codeScaled} -> ${geoTypes[codeScaled]}`);
         return geoTypes[codeScaled];
