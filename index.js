@@ -40,9 +40,10 @@ async function sendConfigsToBrowser(imgPath, keepOpen, headless, configs) {
     if(!keepOpen) {
         await process.exit(1);
     }
+    return { status: 'ok' };
 }
 
 module.exports = function convert(imgPath, keepOpen, headless, configs) {
     startServer();
-    sendConfigsToBrowser(imgPath, keepOpen, headless, configs);
+    return sendConfigsToBrowser(imgPath, keepOpen, headless, configs);
 }
