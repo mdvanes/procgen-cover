@@ -2,8 +2,9 @@
 
 const path = require('path');
 const puppeteer = require('puppeteer');
-const port = 50822;
+const webp = require('webp-converter');
 let server = require('node-http-server');
+const port = 50822;
 
 function startServer() {
     // Serve the HTML that will generate the cover with WebGL
@@ -13,6 +14,18 @@ function startServer() {
             root: path.resolve(__dirname) + '/public/'
         }
     );
+}
+
+function cwebpPromise(input, output, quality) {
+    return new Promise((resolve, reject) => {
+        webp.cwebp(input, output, `-q ${quality}`, status => {
+            if(status.indexOf('100') === 0) {
+                resolve();
+            } else {
+                reject(`failed with status ${status}`);
+            }
+        });    
+    });
 }
 
 async function sendConfigsToBrowser(imgPath, options, configs) {
@@ -36,6 +49,10 @@ async function sendConfigsToBrowser(imgPath, options, configs) {
             if(options.quality) {
                 puppeteerOptions.quality = options.quality;
             }
+        } else if(options.type === 'webp') {
+            extension = 'jpg';
+            puppeteerOptions.type = 'jpeg';
+            puppeteerOptions.quality = 100;
         }
 
         const fileName = `${config}.${extension}`
@@ -48,6 +65,15 @@ async function sendConfigsToBrowser(imgPath, options, configs) {
         //     // omitBackground: true,
         // });
         console.log(`Generated ${fileName}`);
+
+        if(options.type === 'webp') {
+            try {
+                await cwebpPromise(puppeteerOptions.path, `${imgPath}/${config}.webp`, 80);
+                console.log(`Generated ${imgPath}/${config}.webp`);
+            } catch(err) {
+                console.error('err', err);
+            }
+        }
     }
 
     await browser.close();
