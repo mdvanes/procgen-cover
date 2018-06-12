@@ -1,7 +1,7 @@
 const generateCovers = require('./index');
 
 // Sync
-generateCovers('.', false, true, [
+generateCovers('.', {keepOpen: false, headless: true}, [
     '0ad401c67a2d28fced849ee1bb76e7391b93eb12ed849ea',
     'fad4f1c67a2d28fced849ee1bb76e7391b93eb12ed849ea',
     '3e7398b93eb529004e1c67a2d28fced849ee1bb76e7391b',
@@ -11,7 +11,12 @@ generateCovers('.', false, true, [
     'ee7398b93eb529004e1c67a2d28fced849ee1bb76e7391b'
 ]);
 
+// Formats
+// generateCovers('.', {keepOpen: false, headless: true, type: 'jpg', quality: 70}, [
+//     'ee7398b93eb529004e1c67a2d28fced849ee1bb76e7391b'
+// ]);
+
 // Async
-// generateCovers('.', true, true, [
+// generateCovers('.', {keepOpen: true, headless: true}, [
 //     '0ad401c67a2d28fced849ee1bb76e7391b93eb12ed849ea'
 // ]).then(result => console.log(result.status));
