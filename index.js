@@ -3,6 +3,7 @@
 const path = require('path');
 const puppeteer = require('puppeteer');
 const webp = require('webp-converter');
+const fs = require('fs');
 let server = require('node-http-server');
 const port = 50822;
 
@@ -43,35 +44,39 @@ async function sendConfigsToBrowser(imgPath, options, configs) {
 
         let extension = 'png';
 
-        if(options.type === 'jpg') {
-            extension = 'jpg';
-            puppeteerOptions.type = 'jpeg';
-            if(options.quality) {
-                puppeteerOptions.quality = options.quality;
+        for(format of options.formats) {
+            if(format.type === 'jpg') {
+                extension = 'jpg';
+                puppeteerOptions.type = 'jpeg';
+                if(format.quality) {
+                    puppeteerOptions.quality = format.quality;
+                }
+            } else if(format.type === 'webp') {
+                extension = 'temp.jpg';
+                puppeteerOptions.type = 'jpeg';
+                puppeteerOptions.quality = 100;
             }
-        } else if(options.type === 'webp') {
-            extension = 'jpg';
-            puppeteerOptions.type = 'jpeg';
-            puppeteerOptions.quality = 100;
-        }
-
-        const fileName = `${config}.${extension}`
-        puppeteerOptions.path = `${imgPath}/${fileName}`;
-
-        const generatedImage = await page.$('canvas');
-        await generatedImage.screenshot(puppeteerOptions);
-        // await generatedImage.screenshot({
-        //     path: `${imgPath}/${config}.png`,
-        //     // omitBackground: true,
-        // });
-        console.log(`Generated ${fileName}`);
-
-        if(options.type === 'webp') {
-            try {
-                await cwebpPromise(puppeteerOptions.path, `${imgPath}/${config}.webp`, 80);
-                console.log(`Generated ${imgPath}/${config}.webp`);
-            } catch(err) {
-                console.error('err', err);
+    
+            const fileName = `${config}.${extension}`
+            puppeteerOptions.path = `${imgPath}/${fileName}`;
+    
+            const generatedImage = await page.$('canvas');
+            await generatedImage.screenshot(puppeteerOptions);
+            // await generatedImage.screenshot({
+            //     path: `${imgPath}/${config}.png`,
+            //     // omitBackground: true,
+            // });
+            console.log(`Generated ${fileName}`);
+    
+            if(format.type === 'webp') {
+                try {
+                    await cwebpPromise(puppeteerOptions.path, `${imgPath}/${config}.webp`, format.quality);
+                    // Delete source
+                    fs.unlinkSync(puppeteerOptions.path);
+                    console.log(`Generated ${imgPath}/${config}.webp`);
+                } catch(err) {
+                    console.error('err', err);
+                }
             }
         }
     }
@@ -90,8 +95,12 @@ module.exports = function convert(imgPath, options, configs) {
         // default options
         keepOpen: false,
         headless: true,
-        type: 'png',
-        quality: 100
+        formats: [
+            {
+                type: 'png',
+                quality: 100        
+            }
+        ]
     }, options);
     startServer();
     return sendConfigsToBrowser(imgPath, newOptions, configs);

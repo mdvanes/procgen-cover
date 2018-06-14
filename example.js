@@ -12,11 +12,14 @@ generateCovers('.', {keepOpen: false, headless: true}, [
 ]);
 
 // Formats
-// generateCovers('.', {keepOpen: false, headless: true, type: 'jpg', quality: 70}, [
-//     'ee7398b93eb529004e1c67a2d28fced849ee1bb76e7391b'
-// ]);
-
-// generateCovers('.', {keepOpen: false, headless: true, type: 'webp', quality: 70}, [
+// generateCovers('.', {
+//     keepOpen: false, 
+//     headless: true, 
+//     formats: [
+//         {type: 'jpg', quality: 70},
+//         {type: 'webp', quality: 70}
+//     ]
+// }, [
 //     'ee7398b93eb529004e1c67a2d28fced849ee1bb76e7391b'
 // ]);
 
