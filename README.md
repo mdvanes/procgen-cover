@@ -2,7 +2,7 @@ Run `node example.js`. The script will procedurally create geometrical scenes fo
 
 E.g. the hash  3e7398b93eb529004e1c67a2d28fced849ee1bb76e7391b results in this image:
 
-![3e7398b93eb529004e1c67a2d28fced849ee1bb76e7391b.png](3e7398b93eb529004e1c67a2d28fced849ee1bb76e7391b.png)
+![3e7398b93eb529004e1c67a2d28fced849ee1bb76e7391b-1222w.png](3e7398b93eb529004e1c67a2d28fced849ee1bb76e7391b-1222w.png)
 
 Based on my earlier project: https://github.com/mdvanes/ImpossibleObjects/tree/gh-pages/kubische_ruimteverdeling
 

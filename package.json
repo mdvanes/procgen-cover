@@ -1,6 +1,6 @@
 {
   "name": "procgen-cover",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Procedurally generate cover images for blogs posts from a hash of the blog title/date/content",
   "main": "index.js",
   "scripts": {

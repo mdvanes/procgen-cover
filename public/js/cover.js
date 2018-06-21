@@ -71,8 +71,9 @@ export function generateCover(hash = '3fd4e1c67a2d28fced849ee1bb76e7391b93eb12')
     const hashConfig = new HashConfig(hash);
     // renderer
     renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
-    const renderWidth = 1222;
-    const renderHeight = 300;
+
+    const renderWidth = document.body.clientWidth; //1222
+    const renderHeight = document.body.clientHeight; //300
     renderer.setSize(renderWidth, renderHeight);
     document.querySelector('.cover').appendChild(renderer.domElement);
 
@@ -82,7 +83,7 @@ export function generateCover(hash = '3fd4e1c67a2d28fced849ee1bb76e7391b93eb12')
     settings.cameraLookAt = new THREE.Vector3( -100, -150, 0 );
     camera.lookAt( settings.cameraLookAt );
 
-    rotateCamera(hashConfig.cameraOffset, camera, settings.cameraLookAt)
+    rotateCamera(hashConfig.cameraOffset, camera, settings.cameraLookAt);
 
     // scene
     scene = new THREE.Scene();
