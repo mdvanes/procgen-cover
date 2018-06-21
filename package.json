@@ -1,6 +1,6 @@
 {
   "name": "procgen-cover",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Procedurally generate cover images for blogs posts from a hash of the blog title/date/content",
   "main": "index.js",
   "scripts": {
@@ -12,5 +12,9 @@
     "node-http-server": "^8.1.2",
     "puppeteer": "^1.4.0",
     "webp-converter": "^2.1.6"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/mdvanes/procgen-cover.git"
   }
 }
